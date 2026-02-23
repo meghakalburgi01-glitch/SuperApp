@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html>
+<head>
+<title>Tourist Budget Planner - India</title>
+<style>
+body {
+    margin: 0;
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background: linear-gradient(135deg, #f3e7d3, #e8dcca);
+    font-family: Arial, sans-serif;
+}
+
+.container {
+    width: 780px;
+    background: #fffaf3;
+    padding: 25px;
+    border-radius: 16px;
+    box-shadow: 0 12px 30px rgba(0,0,0,0.2);
+    animation: zoomIn 0.8s ease;
+    max-height: 90vh;
+    overflow-y: auto;
+}
+
+h2 {
+    text-align: center;
+    color: #8b5e3c;
+}
+
+label {
+    font-weight: bold;
+    color: #5c4033;
+}
+
+input, select, button {
+    width: 100%;
+    padding: 10px;
+    margin-top: 6px;
+    margin-bottom: 12px;
+}
+
+button {
+    background: #8b5e3c;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    cursor: pointer;
+}
+
+button:hover {
+    background: #6f452c;
+}
+
+.result {
+    margin-top: 20px;
+    padding: 15px;
+    background: #f6efe6;
+    border-radius: 12px;
+    animation: fadeIn 1s ease;
+}
+
+.result img {
+    width: 100%;
+    border-radius: 12px;
+    margin-bottom: 10px;
+}
+
+@keyframes zoomIn {
+    from { transform: scale(0.85); opacity: 0; }
+    to { transform: scale(1); opacity: 1; }
+}
+
+@keyframes fadeIn {
+    from { opacity: 0; }
+    to { opacity: 1; }
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+<h2>🇮🇳 Tourist Budget Planner</h2>
+
+<form onsubmit="planTrip(); return false;">
+    <label>From:</label>
+    <input type="text" id="from" placeholder="Your City" required>
+
+    <label>To (Destination):</label>
+    <select id="to" required>
+        <option value="">Select Destination</option>
+        <option>Goa</option>
+        <option>Jaipur</option>
+        <option>Udaipur</option>
+        <option>Mysore</option>
+        <option>Delhi</option>
+        <option>Agra</option>
+        <option>Manali</option>
+        <option>Ooty</option>
+        <option>Kerala</option>
+        <option>Amritsar</option>
+    </select>
+
+    <label>Number of Days:</label>
+    <input type="number" id="days" required>
+
+    <label>Budget (₹):</label>
+    <input type="number" id="budget" required>
+
+    <button type="submit">Plan My Trip ✈</button>
+</form>
+
+<div class="result" id="output"></div>
+</div>
+<script>
+function planTrip() {
+    let from = document.getElementById("from").value;
+    let to = document.getElementById("to").value;
+    let days = document.getElementById("days").value;
+    let budget = document.getElementById("budget").value;
+
+    let stay = days * 1500;
+    let food = days * 700;
+    let travel = 4000;
+    let total = stay + food + travel;
+
+    let status = total <= budget ? "✅ Within Budget" : "❌ Over Budget";
+
+    let img="", places="", nearby="", staySug="", foods="", season="", tips="";
+
+    if (to === "Goa") {
+        img = "60d0813807aff-Baga_Beach_In_Goa.jpg";
+        places = "Baga Beach, Anjuna Beach, Fort Aguada";
+        nearby = "Dudhsagar Falls (60 km), Old Goa Churches (10 km)";
+        staySug = "Zostel Goa, Jungle Hostel, Beach Homestays";
+        foods = "Fish Curry Rice, Prawn Fry, Bebinca, Goan Sausage";
+        season = "November to February";
+        tips = "Rent scooters, avoid monsoon months.";
+    }
+    else if (to === "Jaipur") {
+        img = "GettyImages-518387310-04a30994bfb1461bb8000f1864ca1fc5.jpg";
+        places = "Hawa Mahal, Amber Fort, City Palace";
+        nearby = "Nahargarh Fort (15 km), Ajmer (135 km)";
+        staySug = "Zostel Jaipur, Rawla Homestay, Pearl Palace";
+        foods = "Dal Baati Churma, Ghewar, Pyaz Kachori";
+        season = "October to March";
+        tips = "Visit forts early morning.";
+    }
+    else if (to === "Udaipur") {
+        img = "udaipur.jpg";
+        places = "City Palace, Lake Pichola, Jag Mandir";
+        nearby = "Kumbhalgarh Fort (85 km), Mount Abu (165 km)";
+        staySug = "Zostel Udaipur, Lake View Homestays";
+        foods = "Gatte ki Sabzi, Dal Baati, Malai Ghewar";
+        season = "October to March";
+        tips = "Evening lake boat rides are best.";
+    }
+    else if (to === "Mysore") {
+        img = "-62814_9768.jpg";
+        places = "Mysore Palace, Chamundi Hills, Zoo";
+        nearby = "Srirangapatna (16 km), Coorg (120 km)";
+        staySug = "Zostel Mysore, Hotel Roopa, Homestays";
+        foods = "Mysore Pak, Dosa, Filter Coffee";
+        season = "October to February";
+        tips = "Visit palace at night lighting.";
+    }
+    else if (to === "Delhi") {
+        img = "delhi-red-fort-facade-548ewabeu7s7nrvv.jpg";
+        places = "India Gate, Red Fort, Qutub Minar";
+        nearby = "Agra (230 km), Jaipur (280 km)";
+        staySug = "Bloomrooms, Zostel Delhi, Homestays";
+        foods = "Chole Bhature, Butter Chicken, Paratha";
+        season = "October to March";
+        tips = "Use metro for travel.";
+    }
+    else if (to === "Agra") {
+        img = "4k-time-lapse-of-taj-mahal-an-ivory-white-marble-mausoleum-on-the-south-bank-of-the-yamuna-river-in-agra-uttar-pradesh-india-free-video.jpg";
+        places = "Taj Mahal, Agra Fort";
+        nearby = "Fatehpur Sikri (40 km), Mathura (60 km)";
+        staySug = "Zostel Agra, Taj View Homestays";
+        foods = "Petha, Mughlai Biryani";
+        season = "October to March";
+        tips = "Visit Taj early morning.";
+    }
+    else if (to === "Manali") {
+        img = "tpkg-manalitour.jpg";
+        places = "Solang Valley, Rohtang Pass";
+        nearby = "Kasol (75 km), Manikaran (85 km)";
+        staySug = "Zostel Manali, Himalayan Homestays";
+        foods = "Siddu, Momos, Thukpa";
+        season = "March to June & December";
+        tips = "Carry warm clothes.";
+    }
+    else if (to === "Ooty") {
+        img = "ultimate-o-8ac88a2da056a3d.jpg";
+        places = "Ooty Lake, Botanical Garden";
+        nearby = "Coonoor (20 km), Mudumalai (65 km)";
+        staySug = "Zostel Ooty, Hill View Homestays";
+        foods = "Tea, Homemade Chocolates";
+        season = "October to June";
+        tips = "Avoid peak holidays.";
+    }
+    else if (to === "Kerala") {
+        img = "kerala-head.jpg";
+        places = "Alleppey, Munnar, Kovalam";
+        nearby = "Varkala (160 km), Thekkady (140 km)";
+        staySug = "Homestays, Zostel Kochi, Backwater Stays";
+        foods = "Sadya, Appam & Stew, Seafood";
+        season = "September to March";
+        tips = "Book houseboats early.";
+    }
+    else if (to === "Amritsar") {
+        img = "facebook-amritsar.webp";
+        places = "Golden Temple, Jallianwala Bagh";
+        nearby = "Wagah Border (28 km)";
+        staySug = "Zostel Amritsar, City Park Homestay";
+        foods = "Amritsari Kulcha, Lassi";
+        season = "October to March";
+        tips = "Attend evening border ceremony.";
+    }
+
+    document.getElementById("output").innerHTML = `
+        <img src="${img}">
+        <b>Trip:</b> ${from} ➜ ${to}<br><br>
+        <b>Estimated Cost:</b><br>
+        Stay: ₹${stay}<br>
+        Food: ₹${food}<br>
+        Travel: ₹${travel}<br>
+        <b>Total:</b> ₹${total}<br>
+        <b>Status:</b> ${status}<br><br>
+
+        <b>Main Places:</b> ${places}<br><br>
+        <b>Nearby Places:</b> ${nearby}<br><br>
+        <b>Homestay / Stay:</b> ${staySug}<br><br>
+        <b>Food to Try:</b> ${foods}<br><br>
+        <b>Best Season:</b> ${season}<br><br>
+        <b>Travel Tips:</b> ${tips}
+    `;
+}
+
+</script>
+
+</body>
+</html>
